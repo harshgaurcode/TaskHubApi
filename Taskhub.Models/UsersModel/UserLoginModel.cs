@@ -1,4 +1,4 @@
-﻿namespace Taskhub.Models
+﻿namespace Taskhub.Models.UsersModel
 {
     public class UserLoginModel
     {

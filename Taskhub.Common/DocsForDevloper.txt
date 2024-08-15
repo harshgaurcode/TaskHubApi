@@ -1,0 +1,25 @@
+﻿Roles are difined like this 
+
+RoleId			RoleName
+
+001				Manager 
+002				Employee
+003				SuperAdmin
+004				OfficeSupport 
+005				HrDepartment 
+006				ItSupport 
+007				QA
+
+
+Task Status are defined like this 
+
+0				ToDo
+1				InProgress
+2				InQa
+3				pending 
+4				completed
+
+
+
+
+
