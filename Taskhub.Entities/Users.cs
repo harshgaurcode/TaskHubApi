@@ -38,10 +38,13 @@ namespace Taskhub.Entities
         public Guid RoleId { get; set; }
 
         //Navigation 
+        [NotMapped]
         public UserRole? Role { get; set; }
-       
+
+        [NotMapped]
         public ICollection<ProjectMembers>? ProjectMembers { get; set; }
 
+        [NotMapped]
         public UserOfficalInformation? UserOfficialInformation { get; set; }
 
 

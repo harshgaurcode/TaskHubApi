@@ -26,8 +26,11 @@ namespace Taskhub.Entities
         [ForeignKey("Client")]
         public Guid ClientId { get; set; }
 
+        [NotMapped]
         public Users? Client { get; set; }
 
+
+        [NotMapped]
         public ICollection<ProjectMembers>? ProjectMembers { get; set; }
 
         public DateTime CreatedTimeStamp { get; set; }

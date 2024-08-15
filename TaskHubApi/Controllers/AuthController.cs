@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Taskhub.Common;
+using Taskhub.Entities;
 using Taskhub.Models.ResponseDto;
 using Taskhub.Models.UsersModel;
 using Taskhub.Services.AuthService;
@@ -17,11 +18,13 @@ namespace TaskHubApi.Controllers
     {
         private readonly IAuthService _authService;
         private readonly APIResponse<object> _response;
+        private readonly TaskhubDbContext context;
 
-        public AuthController(IAuthService authService,APIResponse<object> response)
+        public AuthController(IAuthService authService,APIResponse<object> response,TaskhubDbContext context)
         {
             _authService = authService;
             _response= response;
+            this.context = context;
         }
 
         [AllowAnonymous]
@@ -109,6 +112,21 @@ namespace TaskHubApi.Controllers
                 _response.ErrorMessages=new List<string> { ex.ToString() };
                 return _response;
             }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("UserRole")]
+        public async Task<object> UserRole(string UserRole)
+        {
+            var Role = new UserRole
+            {
+                Id = Guid.NewGuid(),
+                RoleName = UserRole,
+            };
+
+            await context.UserRoles.AddAsync(Role);
+            await context.SaveChangesAsync();
+            return Ok(Role);
         }
     }
 

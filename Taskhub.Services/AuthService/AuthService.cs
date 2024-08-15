@@ -109,6 +109,14 @@ namespace Taskhub.Services.AuthService
                     User = null
                 };
             }
+            else if(user.IsAuthenticated==false)
+            {
+                return new LoginResponseModel()
+                {
+                    Token = "You are not Authenticated for login ",
+                    User = null
+                };
+            }
             else
             {
                 var UserResponse = new UserDto()
@@ -155,9 +163,8 @@ namespace Taskhub.Services.AuthService
 
         private string CreateToken(Users user)
         {
-            string? role = string.IsNullOrEmpty(user.RoleId.ToString())? user.RoleId.ToString():"001";
+            string? role = commonMethods.GetRoleNameById(user.RoleId);
 
-            
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),

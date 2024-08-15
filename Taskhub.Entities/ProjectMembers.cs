@@ -15,14 +15,19 @@ namespace Taskhub.Entities
 
         [ForeignKey("Project")]
         public Guid ProjectId { get; set; }
+
+        [NotMapped]
         public Project? Project { get; set; }
 
         [ForeignKey("User")]
         public Guid UserId { get; set; }
+        [NotMapped]
         public User? User { get; set; }
 
         [ForeignKey("Role")]
         public Guid? RoleId { get; set; }
+       
+        [NotMapped]
         public UserRole? Role { get; set; }
 
 

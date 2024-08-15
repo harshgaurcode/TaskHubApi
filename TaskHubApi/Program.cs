@@ -80,32 +80,32 @@ builder.Services.AddHealthChecksUI(opts =>
 
 builder.Services.AddWatchDogServices();
 
-//builder.Services.AddAuthorization(opts =>
-//{
-//    //opts.AddPolicy(name: "MustHaveEmployeeId", policy =>
-//    //{
-//    //    policy.RequireClaim(claimType: "employeeId");
-//    //});
-//    opts.FallbackPolicy = new AuthorizationPolicyBuilder()
-//                        .RequireAuthenticatedUser()
-//                        .Build();
-//});
 
-//builder.Services.AddAuthentication(defaultScheme: "Bearer")
-//    .AddJwtBearer(opts =>
-//    {
-//        opts.TokenValidationParameters = new()
-//        {
-//            ValidateIssuer = true,
-//            ValidateAudience = true,
-//            ValidateIssuerSigningKey = true,
-//            ValidIssuer = builder.Configuration.GetValue<string>(key: "Authentication:Issuer"),
-//            ValidAudience = builder.Configuration.GetValue<string>(key: "Authentication:Audience"),
-//            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>(key: "Authentication:SecretKey")!))
-//        };
-//    }
+builder.Services.AddAuthentication(defaultScheme: "Bearer")
+    .AddJwtBearer(opts =>
+    {
+        opts.TokenValidationParameters = new()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration.GetValue<string>(key: "Authentication:Issuer"),
+            ValidAudience = builder.Configuration.GetValue<string>(key: "Authentication:Audience"),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>(key: "Authentication:SecretKey")!))
+        };
+    }
 
-//    );
+    );
+
+
+builder.Services.AddAuthorization(opts =>
+{
+    opts.AddPolicy("SuperadminOnly", policy =>
+            policy.RequireRole("Superadmin"));
+    opts.FallbackPolicy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+});
 
 builder.Services.AddMemoryCache();
 builder.AddRateLimitServices();

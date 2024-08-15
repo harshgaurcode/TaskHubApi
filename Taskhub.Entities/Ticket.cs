@@ -14,6 +14,7 @@ namespace Taskhub.Entities
         [ForeignKey("Project")]
         public Guid ProjectId { get ; set; }
 
+        [NotMapped]
         public Project? Project { get; set; }
 
         public string? TaskId { get; set; }=string.Empty;
@@ -27,6 +28,8 @@ namespace Taskhub.Entities
         [ForeignKey("AssignedTo")]
         public Guid AssigendToId { get; set; }
 
+
+        [NotMapped]
         public Users? AssignedTo { get; set; }
         
         public int Status { get; set; } 

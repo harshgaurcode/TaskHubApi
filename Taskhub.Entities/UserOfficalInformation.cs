@@ -9,6 +9,7 @@ namespace Taskhub.Entities
         [ForeignKey("Users")]
         public Guid UserId { get; set; }
 
+        [NotMapped]
         public Users? Users { get; set; }
 
         public Guid ManagedBy { get; set; }
